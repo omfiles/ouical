@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "devDependencies": {
     "grunt": "*",
-    "grunt-contrib-uglify": "*"
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-watch": "*"
   }
 }

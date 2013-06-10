@@ -33,7 +33,8 @@ We're very open to any contributions/improvements you have in mind. Just fork th
 - make sure [nodejs](http://nodejs.org) is installed
 - run `npm install grunt-cli -g`
 - in this directory, run `npm install`
-- after that's done, run `grunt` to generate the minified file
+- after that's done, run `grunt` to build, or `grunt watch` to watch the js file and build whenever you make changes
+- check to make sure everything is good in `test/example.html`
 
 ## Calendar Generator
 Need to generate an add-to-calendar on the fly? No problem, [go here](http://carlsednaoui.github.io/ouical/generator/generator.html).
