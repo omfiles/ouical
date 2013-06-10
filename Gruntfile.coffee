@@ -7,8 +7,8 @@ module.exports = (grunt) ->
       options:
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       build:
-        src: '<%= pkg.name %>.js',
-        dest: '<%= pkg.name %>.min.js'
+        src: 'lib/<%= pkg.name %>.js',
+        dest: 'lib/<%= pkg.name %>.min.js'
 
 
   grunt.loadNpmTasks 'grunt-contrib-uglify'
