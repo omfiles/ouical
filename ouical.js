@@ -133,10 +133,10 @@
   function addToCalendar(params) {
     var valid = validParams(params);
     if (typeof valid === 'string') {
-      var msg = 'ERROR: ' + valid + ' missing'
+      var msg = 'ERROR: ' + valid + ' missing';
       var err = document.createElement('div');
-      err.innerHTML = msg
-      err.style.color = 'red'
+      err.innerHTML = msg;
+      err.style.color = 'red';
       console.log(msg);
       return err
     }
