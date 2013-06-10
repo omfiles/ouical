@@ -1,15 +1,6 @@
 (function(exports) {
+
   var MS_IN_MINUTES = 60 * 1000;
-
-  var formatTime = function(date) {
-    return date.toISOString().replace(/-|:|\.\d+/g, '');
-  };
-
-  var calculateEndTime = function(event) {
-    return event.end ?
-      formatTime(event.end) :
-      formatTime(new Date(event.start.getTime() + (event.duration * MS_IN_MINUTES)));
-  };
 
   var calendarGenerators = {
     google: function(event) {
@@ -82,73 +73,77 @@
           'END:VCALENDAR'].join('\n'));
 
       return '<a class="' + eClass + '" target="_blank" href="' +
-        href + '">' + calendarName + ' Calendar</a>';
+        href + '">' + calendarName + '</a>';
     },
 
-    ical: function(event) {
-      return this.ics(event, 'icon-ical', 'iCal');
+    ical: function(evnt) {
+      return this.ics(evnt, 'icon-ical', 'iCal');
     },
 
-    outlook: function(event) {
-      return this.ics(event, 'icon-outlook', 'Outlook');
+    outlook: function(evnt) {
+      return this.ics(evnt, 'icon-outlook', 'Outlook');
     }
   };
 
-  var generateCalendars = function(event) {
+  function formatTime(date) {
+    return date.toISOString().replace(/-|:|\.\d+/g, '');
+  };
+
+  function calculateEndTime(event) {
+    return event.end ?
+      formatTime(event.end) :
+      formatTime(new Date(event.start.getTime() + (event.duration * MS_IN_MINUTES)));
+  };
+
+  function generateCalendars(evnt) {
     return {
-      google: calendarGenerators.google(event),
-      yahoo: calendarGenerators.yahoo(event),
-      ical: calendarGenerators.ical(event),
-      outlook: calendarGenerators.outlook(event)
+      google: calendarGenerators.google(evnt),
+      yahoo: calendarGenerators.yahoo(evnt),
+      ical: calendarGenerators.ical(evnt),
+      outlook: calendarGenerators.outlook(evnt)
     };
   };
 
   // Make sure we have the necessary event data, such as start time and event duration
-  var validParams = function(params) {
-    return params.data !== undefined && params.data.start !== undefined &&
-      (params.data.end !== undefined || params.data.duration !== undefined);
+  // TODO: have this return what's missing
+  function validParams(params) {
+    if (params == undefined) { return 'options' }
+    if (!params.start) { return 'start time' }
+    if (params.end == undefined && params.duration == undefined) { return 'end time' }
+    return true
   };
 
-  var generateMarkup = function(calendars, clazz, calendarId) {
+  function generateMarkup(calendars, text) {
     var result = document.createElement('div');
+    var id = Math.floor(Math.random() * 1000000);
+    var text = text || '+ Add to my Calendar';
 
     result.innerHTML = '<label for="checkbox-for-' +
-      calendarId + '" class="add-to-calendar-checkbox">+ Add to my Calendar</label>';
-    result.innerHTML += '<input name="add-to-calendar-checkbox" class="add-to-calendar-checkbox" id="checkbox-for-' + calendarId + '" type="checkbox">';
+      id + '" class="add-to-calendar-checkbox">' + text + '</label>';
+    result.innerHTML += '<input name="add-to-calendar-checkbox" class="add-to-calendar-checkbox" id="checkbox-for-' + id + '" type="checkbox">';
 
     Object.keys(calendars).forEach(function(services) {
       result.innerHTML += calendars[services];
     });
 
-    result.className = 'add-to-calendar';
-    if (clazz !== undefined) {
-      result.className += (' ' + clazz);
-    }
-
-    result.id = calendarId;
     return result;
   };
 
-  var getClass = function(params) {
-    if (params.options && params.options.class) {
-      return params.options.class;
+  // the main event
+  function addToCalendar(params) {
+    var valid = validParams(params);
+    if (typeof valid === 'string') {
+      var msg = 'ERROR: ' + valid + ' missing'
+      var err = document.createElement('div');
+      err.innerHTML = msg
+      err.style.color = 'red'
+      console.log(msg);
+      return err
     }
+    return generateMarkup(generateCalendars(params), params.text);
   };
 
-  var getOrGenerateCalendarId = function(params) {
-    return params.options && params.options.id ?
-      params.options.id :
-      Math.floor(Math.random() * 1000000); // Generate a 6-digit random ID
-  };
+  // expose public api
+  exports.addToCalendar = addToCalendar;
 
-  exports.createCalendar = function(params) {
-    if (!validParams(params)) {
-      console.log('Event details missing.');
-      return;
-    }
-
-    return generateMarkup(generateCalendars(params.data),
-                          getClass(params),
-                          getOrGenerateCalendarId(params));
-  };
 })(this);
