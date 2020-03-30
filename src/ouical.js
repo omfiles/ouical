@@ -18,7 +18,7 @@
         '&sprop=&sprop=name:'
       ].join(''));
       return '<a class="icon-google" target="_blank" href="' +
-        href + '">Google Calendar</a>';
+        href + '">Google</a>';
     },
 
     yahoo: function(event) {
@@ -51,7 +51,7 @@
       ].join(''));
 
       return '<a class="icon-yahoo" target="_blank" href="' +
-        href + '">Yahoo! Calendar</a>';
+        href + '">Yahoo!</a>';
     },
 
     ics: function(event, eClass, calendarName) {
@@ -163,7 +163,7 @@
     var style_tag = document.createElement('style');
     style_tag.id = 'ouical-css';
     style_tag.innerHTML = css;
-    document.querySelector('head').appendChild(style_tag);
+    //document.querySelector('head').appendChild(style_tag);
   }
 
 })(this);
