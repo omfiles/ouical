@@ -118,7 +118,7 @@
     var id = Math.floor(Math.random() * 1000000);
     var text = text || '+ Add to my Calendar';
 
-    result.innerHTML = '<h3>Add to your calendar</h3>';
+    result.innerHTML = '<h5 class="calendar-heading">Add to your calendar</h5>';
     //result.innerHTML += '<input name="add-to-calendar-checkbox" class="add-to-calendar-checkbox" id="checkbox-for-' + id + '" type="checkbox">';
 
     Object.keys(calendars).forEach(function(services) {
