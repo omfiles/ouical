@@ -18,7 +18,7 @@
         '&sprop=&sprop=name:'
       ].join(''));
       return '<a class="icon-google" target="_blank" href="' +
-        href + '">Google</a>';
+        href + '">Add to Google Calendar</a>';
     },
 
     yahoo: function(event) {
@@ -50,8 +50,8 @@
         '&in_loc=' + (event.address || '')
       ].join(''));
 
-      return '<a class="icon-yahoo" target="_blank" href="' +
-        href + '">Yahoo!</a>';
+      return "";/*'<a class="icon-yahoo" target="_blank" href="' +
+        href + '">Yahoo!</a>';*/
     },
 
     ics: function(event, eClass, calendarName) {
@@ -77,11 +77,11 @@
     },
 
     ical: function(evnt) {
-      return this.ics(evnt, 'icon-ical', 'iCal');
+      return this.ics(evnt, 'icon-ical', 'Add to Apple Calendar');
     },
 
     outlook: function(evnt) {
-      return this.ics(evnt, 'icon-outlook', 'Outlook');
+      return this.ics(evnt, 'icon-outlook', 'Add to Outlook');
     }
   };
 
