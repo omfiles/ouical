@@ -18,7 +18,7 @@
         '&sprop=&sprop=name:'
       ].join(''));
       return '<a class="icon-google" target="_blank" href="' +
-        href + '">Add to Google Calendar</a>';
+        href + '">Google</a>';
     },
 
     yahoo: function(event) {
@@ -77,11 +77,11 @@
     },
 
     ical: function(evnt) {
-      return this.ics(evnt, 'icon-ical', 'Add to Apple Calendar');
+      return this.ics(evnt, 'icon-ical', 'Apple');
     },
 
     outlook: function(evnt) {
-      return this.ics(evnt, 'icon-outlook', 'Add to Outlook');
+      return this.ics(evnt, 'icon-outlook', 'Outlook');
     }
   };
 
@@ -118,7 +118,7 @@
     var id = Math.floor(Math.random() * 1000000);
     var text = text || '+ Add to my Calendar';
 
-    result.innerHTML = '';
+    result.innerHTML = '<h3>Add to your calendar</h3>';
     //result.innerHTML += '<input name="add-to-calendar-checkbox" class="add-to-calendar-checkbox" id="checkbox-for-' + id + '" type="checkbox">';
 
     Object.keys(calendars).forEach(function(services) {
