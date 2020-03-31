@@ -72,7 +72,7 @@
           'END:VEVENT',
           'END:VCALENDAR'].join('\n'));
 
-      return '<a class="' + eClass + '" target="_blank" href="' +
+      return '<a class="' + eClass + '" target="_blank" download="click-to-add.ics" href="' +
         href + '">' + calendarName + '</a>';
     },
 
